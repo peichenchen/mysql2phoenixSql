@@ -13,6 +13,7 @@ public class DataTypeMapping {
     public static final Map<String, String> mapping = Maps.newHashMap();
 
     static {
+        mapping.put("INT", "INTEGER");
         mapping.put("DATETIME", "TIME");
         mapping.put("TEXT", "VARCHAR");
     }

@@ -1,0 +1,1 @@
+####将mysql的create table sql语句转化为phoenix sql语句

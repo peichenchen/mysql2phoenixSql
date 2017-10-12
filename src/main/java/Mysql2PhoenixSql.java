@@ -36,15 +36,21 @@ public class Mysql2PhoenixSql {
 
         sql = mysqlToPhoenixDataType(sql);
 
-        List<String> indexFields = extractIndexFields(sql);
-        String tableName = StringUtils.substringBetween(sql, "CREATE TABLE", "(").trim();
-        List<String> indexSqls = generateIndexSql(indexFields, tableName);
-        System.out.println(indexSqls);
+        List<String> indexSqls = createIndexSqls(sql);
 
         sql = dealPrimaryKey(sql);
 
         System.out.println(sql);
+        for (String indexSql : indexSqls) {
+            System.out.println(indexSql);
+        }
 
+    }
+
+    private static List<String> createIndexSqls(String sql) {
+        List<String> indexFields = extractIndexFields(sql);
+        String tableName = StringUtils.substringBetween(sql, "CREATE TABLE", "(").trim();
+        return generateIndexSql(indexFields, tableName);
     }
 
     private static List<String> generateIndexSql(List<String> indexFields, String tableName) {
