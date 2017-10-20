@@ -1,3 +1,5 @@
+package com.pcc.phoenixsql.builder;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -11,8 +13,12 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.util.Assert;
 
 import com.google.common.collect.Lists;
+import com.pcc.phoenixsql.cfg.DataTypeMapping;
+import com.pcc.phoenixsql.utils.MyStringUtil;
 
 /**
+ *
+ *
  * Created by peichenchen on 17/10/12.
  */
 public class SingleTableConvertor {
@@ -23,7 +29,7 @@ public class SingleTableConvertor {
      * @param saltBuckets 分的region数量 （按数据量和读写量综合评估）
      * @throws IOException
      */
-    public void convert(String sqlFilePath, String schema, int saltBuckets) throws IOException {
+    public void convert(String sqlFilePath, String schema, String tablePrefix, int saltBuckets) throws IOException {
 
         String sqlContent = FileUtils.readFileToString(new File(sqlFilePath), "utf-8");
 
@@ -49,7 +55,7 @@ public class SingleTableConvertor {
     }
 
     private List<String> splitByTable(String sqlContent) {
-        return StringUtil.extractMatchItems(sqlContent, "(CREATE\\s+TABLE[\\s\\S]*?ENGINE.*?;)");
+        return MyStringUtil.extractMatchItems(sqlContent, "(CREATE\\s+TABLE[\\s\\S]*?ENGINE.*?;)");
     }
 
     private void print(String sql, List<String> indexSqls) {
@@ -62,7 +68,7 @@ public class SingleTableConvertor {
     }
 
     private List<String> createIndexSqls(String sql) {
-        List<String> indexFields = StringUtil.extractMatchItems(sql, "KEY\\s+[A-Z_\\d]+\\s+\\(([A-Z_,\\d]+)\\)");
+        List<String> indexFields = MyStringUtil.extractMatchItems(sql, "KEY\\s+[A-Z_\\d]+\\s+\\(([A-Z_,\\d]+)\\)");
         String tableName = StringUtils.substringBetween(sql, "CREATE TABLE", "(").trim();
         return generateIndexSql(indexFields, tableName);
     }

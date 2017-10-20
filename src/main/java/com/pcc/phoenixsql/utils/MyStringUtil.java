@@ -1,13 +1,27 @@
+package com.pcc.phoenixsql.utils;
+
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.google.common.collect.Lists;
 
 /**
+ * 避免和SringUtils名字重复
+ *
  * Created by peichenchen on 17/10/12.
  */
-public class StringUtil {
+public class MyStringUtil {
+
+    public static String addPrefixIfNotBlank(String originStr, String columnPrefix) {
+        String resultStr = originStr;
+        if (StringUtils.isNotBlank(columnPrefix)) {
+            resultStr = columnPrefix + "_" + originStr;
+        }
+        return resultStr;
+    }
 
     /**
      * 提取匹配的字符串，返回匹配组内的group(1)集合

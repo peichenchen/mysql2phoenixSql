@@ -1,3 +1,5 @@
+package com.pcc.phoenixsql.cfg;
+
 import java.util.Map;
 
 import com.google.common.collect.Maps;
