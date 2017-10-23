@@ -21,10 +21,14 @@ import net.sf.jsqlparser.statement.create.table.CreateTable;
  */
 public class Mysql2PhoenixSql {
 
-    private static final String SQL_PATH      = "/Users/peichenchen/Downloads/temp/testSql";
-    private static final String SCHEMA_NAME   = "DAIJIA_ORDER";
-    private static final String COLUMN_PREFIX = "VO";
-    private static final int    SALT_BUCKETS  = 64;
+    /**
+     * 运行前请提供如下参数
+     */
+    private static final String  SQL_PATH           = "/Users/peichenchen/Downloads/temp/testSql";
+    private static final String  SCHEMA_NAME        = "DAIJIA_ORDER";
+    private static final String  COLUMN_PREFIX      = "VO";
+    private static final int     SALT_BUCKETS       = 64;
+    private static final boolean USING_FOR_TEST_ENV = true;
 
     public static void main(String[] args) throws IOException, JSQLParserException {
         // TODO 3.支持生成导入数据时需要用到的select sql
@@ -32,7 +36,7 @@ public class Mysql2PhoenixSql {
         CreateTable mysqlCreateTable = getCreateTableStatement(SQL_PATH);
 
         String createTableSql = new PhoenixCreateTableBuilder().build(mysqlCreateTable, SCHEMA_NAME, COLUMN_PREFIX,
-            SALT_BUCKETS, true);
+            SALT_BUCKETS, USING_FOR_TEST_ENV);
         List<String> createIndexSqls = new PhoenixCreateIndexBuilder().build(mysqlCreateTable, SCHEMA_NAME,
             COLUMN_PREFIX);
         String selectSql = new PhoenixSelectBuilder().build(mysqlCreateTable, COLUMN_PREFIX);
