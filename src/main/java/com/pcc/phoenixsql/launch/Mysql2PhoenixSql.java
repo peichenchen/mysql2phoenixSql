@@ -21,14 +21,20 @@ import net.sf.jsqlparser.statement.create.table.CreateTable;
  */
 public class Mysql2PhoenixSql {
 
+    private static final String SQL_PATH      = "/Users/peichenchen/Downloads/temp/testSql";
+    private static final String SCHEMA_NAME   = "DAIJIA_ORDER";
+    private static final String COLUMN_PREFIX = "VO";
+    private static final int    SALT_BUCKETS  = 64;
+
     public static void main(String[] args) throws IOException, JSQLParserException {
-        // TODO 2.保留表和字段的注释
         // TODO 3.支持生成导入数据时需要用到的select sql
 
-        CreateTable mysqlCreateTable = getCreateTableStatement("/Users/peichenchen/Downloads/temp/testSql");
+        CreateTable mysqlCreateTable = getCreateTableStatement(SQL_PATH);
 
-        String createTableSql = new PhoenixCreateTableBuilder().build(mysqlCreateTable, "DAIJIA_ORDER", "VO", 64, true);
-        List<String> createIndexSqls = new PhoenixCreateIndexBuilder().build(mysqlCreateTable, "DAIJIA_ORDER", "VO");
+        String createTableSql = new PhoenixCreateTableBuilder().build(mysqlCreateTable, SCHEMA_NAME, COLUMN_PREFIX,
+            SALT_BUCKETS, true);
+        List<String> createIndexSqls = new PhoenixCreateIndexBuilder().build(mysqlCreateTable, SCHEMA_NAME,
+            COLUMN_PREFIX);
         print(createTableSql, createIndexSqls);
     }
 

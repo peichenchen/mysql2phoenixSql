@@ -24,7 +24,8 @@ public class MyStringUtil {
         }
         if (list != null) {
             for (int i = 0; i < list.size(); i++) {
-                ans.append(prefix).append("_").append(list.get(i)).append((i < list.size() - 1) ? comma : "");
+                Object item = StringUtils.isNotBlank(prefix) ? prefix + "_" + list.get(i) : list.get(i);
+                ans.append(item).append((i < list.size() - 1) ? comma : "");
             }
         }
 
