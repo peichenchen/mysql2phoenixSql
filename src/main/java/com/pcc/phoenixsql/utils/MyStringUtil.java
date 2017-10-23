@@ -9,11 +9,27 @@ import org.apache.commons.lang.StringUtils;
 import com.google.common.collect.Lists;
 
 /**
- * 避免和SringUtils名字重复
- *
- * Created by peichenchen on 17/10/12.
+ * 避免和SringUtils名字重复的一个String处理工具类
+ * 
+ * @author peichenchen
+ * @version 17/10/12 上午10:58
  */
 public class MyStringUtil {
+
+    public static String getStringList(List<?> list, String prefix, boolean useComma) {
+        StringBuilder ans = new StringBuilder();
+        String comma = ",";
+        if (!useComma) {
+            comma = "";
+        }
+        if (list != null) {
+            for (int i = 0; i < list.size(); i++) {
+                ans.append(prefix).append("_").append(list.get(i)).append((i < list.size() - 1) ? comma : "");
+            }
+        }
+
+        return ans.toString();
+    }
 
     public static String addPrefixIfNotBlank(String originStr, String columnPrefix) {
         String resultStr = originStr;

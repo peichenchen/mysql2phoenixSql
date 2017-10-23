@@ -18,9 +18,10 @@ import com.pcc.phoenixsql.utils.MyStringUtil;
 
 /**
  *
- *
- * Created by peichenchen on 17/10/12.
+ * @author peichenchen
+ * @version 17/10/12 下午9:52
  */
+@Deprecated
 public class SingleTableConvertor {
 
     /**
