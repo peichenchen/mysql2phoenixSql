@@ -8,6 +8,7 @@ import org.apache.commons.io.FileUtils;
 
 import com.pcc.phoenixsql.builder.PhoenixCreateIndexBuilder;
 import com.pcc.phoenixsql.builder.PhoenixCreateTableBuilder;
+import com.pcc.phoenixsql.builder.PhoenixSelectBuilder;
 
 import net.sf.jsqlparser.JSQLParserException;
 import net.sf.jsqlparser.parser.CCJSqlParserUtil;
@@ -15,7 +16,6 @@ import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.statement.create.table.CreateTable;
 
 /**
- * 
  * @author peichenchen
  * @version 17/10/19 下午9:35
  */
@@ -35,7 +35,11 @@ public class Mysql2PhoenixSql {
             SALT_BUCKETS, true);
         List<String> createIndexSqls = new PhoenixCreateIndexBuilder().build(mysqlCreateTable, SCHEMA_NAME,
             COLUMN_PREFIX);
-        print(createTableSql, createIndexSqls);
+        String selectSql = new PhoenixSelectBuilder().build(mysqlCreateTable, COLUMN_PREFIX);
+
+        print(createTableSql);
+        printList(createIndexSqls);
+        print(selectSql);
     }
 
     private static CreateTable getCreateTableStatement(String createSqlPath) throws IOException, JSQLParserException {
@@ -47,13 +51,16 @@ public class Mysql2PhoenixSql {
         return (CreateTable) statement;
     }
 
-    private static void print(String sql, List<String> indexSqls) {
-        System.out.println(sql);
+    private static void print(String str) {
         System.out.println();
-        for (String indexSql : indexSqls) {
-            System.out.println(indexSql);
+        System.out.println(str);
+    }
+
+    private static void printList(List<String> stringLists) {
+        System.out.println();
+        for (String str : stringLists) {
+            System.out.println(str);
         }
-        System.out.println("\n");
     }
 
 }
