@@ -25,14 +25,12 @@ public class Mysql2PhoenixSql {
      * 运行前请提供如下参数
      */
     private static final String  SQL_PATH           = "/Users/peichenchen/Downloads/temp/testSql";
-    private static final String  SCHEMA_NAME        = "DAIJIA_ORDER";
-    private static final String  COLUMN_PREFIX      = "VO";
+    private static final String  SCHEMA_NAME        = "PCC_TEST";
+    private static final String  COLUMN_PREFIX      = "";
     private static final int     SALT_BUCKETS       = 64;
-    private static final boolean USING_FOR_TEST_ENV = true;
+    private static final boolean USING_FOR_TEST_ENV = false;
 
     public static void main(String[] args) throws IOException, JSQLParserException {
-        // TODO 3.支持生成导入数据时需要用到的select sql
-
         CreateTable mysqlCreateTable = getCreateTableStatement(SQL_PATH);
 
         String createTableSql = new PhoenixCreateTableBuilder().build(mysqlCreateTable, SCHEMA_NAME, COLUMN_PREFIX,

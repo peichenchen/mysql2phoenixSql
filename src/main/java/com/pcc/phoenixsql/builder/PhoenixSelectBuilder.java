@@ -2,6 +2,8 @@ package com.pcc.phoenixsql.builder;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.google.common.collect.Lists;
 
 import net.sf.jsqlparser.JSQLParserException;
@@ -23,12 +25,13 @@ public class PhoenixSelectBuilder {
 
         List<String> columns = Lists.newArrayList();
         for (ColumnDefinition columnDefinition : mysqlCreateTable.getColumnDefinitions()) {
-            columns.add(columnPrefix + "_" + columnDefinition.getColumnName());
+            columns.add(StringUtils.isNotBlank(columnPrefix) ? columnPrefix + "_" + columnDefinition.getColumnName()
+                : columnDefinition.getColumnName());
         }
 
         Select select = SelectUtils.buildSelectFromTableAndExpressions(new Table(tableName),
             columns.toArray(new String[0]));
 
-        return select.toString();
+        return select.toString() + ";";
     }
 }

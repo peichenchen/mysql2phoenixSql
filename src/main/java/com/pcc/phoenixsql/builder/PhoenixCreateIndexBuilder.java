@@ -20,7 +20,7 @@ public class PhoenixCreateIndexBuilder {
         List<String> indexFields = Lists.newArrayList();
         // 第一个是主键，所以下标从1开始
         for (int i = 1; i < indexes.size(); i++) {
-            indexFields.add(MyStringUtil.getStringList(indexes.get(i).getColumnsNames(), columnPrefix, true));
+            indexFields.add(MyStringUtil.getStringList(indexes.get(i).getColumnsNames(), columnPrefix, ","));
         }
 
         String tableName = schema + "." + mysqlCreateTable.getTable().getName();
@@ -30,9 +30,11 @@ public class PhoenixCreateIndexBuilder {
 
     private List<String> generateIndexSql(List<String> indexColumns, String tableName) {
         List<String> indexSqls = Lists.newArrayList();
+        // phoenix的索引名称需要在一个schema下唯一
+        String indexPrefix = getIndexPrefix(tableName);
         for (String indexColumnStr : indexColumns) {
             // 处理联合索引
-            String indexName = "IDX_" + indexColumnStr;
+            String indexName = "IDX_" + indexPrefix + "_" + indexColumnStr;
             if (indexColumnStr.contains(",")) {
                 indexName = indexName.replaceAll(",\\s*", "_");
             }
@@ -41,5 +43,20 @@ public class PhoenixCreateIndexBuilder {
         }
 
         return indexSqls;
+    }
+
+    private String getIndexPrefix(String tableName) {
+        StringBuilder indexPrefixBuilder = new StringBuilder();
+        String[] tableNameParts = tableName.substring(tableName.indexOf(".") + 1, tableName.length()).split("_");
+
+        for (int i = 0; i < tableNameParts.length; i++) {
+            if (i == tableNameParts.length - 1) {
+                indexPrefixBuilder.append(tableNameParts[i]);
+            } else {
+                indexPrefixBuilder.append(tableNameParts[i].substring(0, 1));
+            }
+        }
+
+        return indexPrefixBuilder.toString();
     }
 }

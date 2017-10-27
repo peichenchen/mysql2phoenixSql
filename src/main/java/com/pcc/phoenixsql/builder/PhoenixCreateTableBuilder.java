@@ -59,7 +59,7 @@ public class PhoenixCreateTableBuilder {
             String comment = columnName2comment.get(columnName).replaceAll("'", "");
             phoenixCreateSql = phoenixCreateSql.replaceAll("(" + columnName + "\\s+DECIMAL.*?\\),)",
                 "$1" + " //" + comment + "\n");
-            phoenixCreateSql = phoenixCreateSql.replaceAll("(" + columnName + "\\s+[^(]*?,)",
+            phoenixCreateSql = phoenixCreateSql.replaceFirst("([^_]" + columnName + "\\s+[^(]*?,)",
                 "$1" + " //" + comment + "\n");
         }
         return phoenixCreateSql;
@@ -101,7 +101,7 @@ public class PhoenixCreateTableBuilder {
         List<String> tableOptionsStrings = (List<String>) mysqlCreateTable.getTableOptionsStrings();
         for (int i = 0; i < tableOptionsStrings.size(); i++) {
             if (tableOptionsStrings.get(i).equalsIgnoreCase("COMMENT")) {
-                return tableOptionsStrings.get(i + 2);
+                return tableOptionsStrings.get(i + 2).replaceAll("'", "");
             }
         }
 

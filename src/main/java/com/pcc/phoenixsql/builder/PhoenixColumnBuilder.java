@@ -42,10 +42,10 @@ public class PhoenixColumnBuilder {
 
     private ColumnDefinition dealPrimaryKeyAsSpecialColumn(String columnPrefix, List<String> primaryKeyColumnsNames) {
         ColumnDefinition phoenixColumnDefinition = new ColumnDefinition();
-        String primaryKeyName = joinStr(primaryKeyColumnsNames, "_", columnPrefix);
+        String primaryKeyName = MyStringUtil.getStringList(primaryKeyColumnsNames, columnPrefix, "_");
         phoenixColumnDefinition.setColumnName("CONSTRAINT " + primaryKeyName + "_PK");
         ColDataType colDataType = new ColDataType();
-        String primaryKeyStr = joinStr(primaryKeyColumnsNames, ",", columnPrefix);
+        String primaryKeyStr = MyStringUtil.getStringList(primaryKeyColumnsNames, columnPrefix, ",");
         colDataType.setDataType("PRIMARY KEY (" + primaryKeyStr + ")");
         phoenixColumnDefinition.setColDataType(colDataType);
         return phoenixColumnDefinition;
@@ -91,12 +91,4 @@ public class PhoenixColumnBuilder {
         return primaryKeyName;
     }
 
-    private String joinStr(List<String> stringList, String separator, String columnPrefix) {
-        String resultStr = "";
-        for (String str : stringList) {
-            resultStr += columnPrefix + "_" + str + separator;
-        }
-
-        return resultStr.substring(0, resultStr.length() - 1);
-    }
 }

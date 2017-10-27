@@ -16,16 +16,19 @@ import com.google.common.collect.Lists;
  */
 public class MyStringUtil {
 
-    public static String getStringList(List<?> list, String prefix, boolean useComma) {
+    /**
+     * 拼接字符串
+     * @param list 带拼接字符串
+     * @param prefix 每个字符串的前缀
+     * @param spliter 分隔符
+     * @return
+     */
+    public static String getStringList(List<?> list, String prefix, String spliter) {
         StringBuilder ans = new StringBuilder();
-        String comma = ",";
-        if (!useComma) {
-            comma = "";
-        }
         if (list != null) {
             for (int i = 0; i < list.size(); i++) {
                 Object item = StringUtils.isNotBlank(prefix) ? prefix + "_" + list.get(i) : list.get(i);
-                ans.append(item).append((i < list.size() - 1) ? comma : "");
+                ans.append(item).append((i < list.size() - 1) ? spliter : "");
             }
         }
 
