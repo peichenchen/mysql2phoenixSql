@@ -66,7 +66,7 @@ public class PhoenixColumnBuilder {
 
     private ColDataType buildColDataType(ColumnDefinition mysqlColumnDefinition) {
         String mysqlDataType = mysqlColumnDefinition.getColDataType().getDataType();
-        String phoenixDataType = DataTypeMapping.mapping.get(mysqlDataType);
+        String phoenixDataType = DataTypeMapping.MAPPING_CFG.get(mysqlDataType);
         ColDataType phoenixCloDataType = new ColDataType();
         phoenixCloDataType.setDataType(mysqlDataType);
         if (phoenixDataType != null) {

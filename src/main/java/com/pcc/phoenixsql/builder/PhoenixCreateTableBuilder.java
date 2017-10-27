@@ -45,8 +45,6 @@ public class PhoenixCreateTableBuilder {
         CreateTableDeParser createTableDeParser = new CreateTableDeParser(new StringBuilder());
         createTableDeParser.deParse(phoenixCreateTable);
         String phoenixCreateSql = createTableDeParser.getBuffer().toString();
-        //        System.out.println(phoenixCreateSql);
-        //        System.out.println(phoenixCreateTable.toString());
 
         phoenixCreateSql = addPhoenixComment(columnPrefix, mysqlCreateTable, phoenixCreateSql);
 
@@ -79,7 +77,7 @@ public class PhoenixCreateTableBuilder {
     private String getColumnComment(ColumnDefinition mysqlColumnDefinition) {
         List<String> columnSpecStrings = mysqlColumnDefinition.getColumnSpecStrings();
         for (int i = 0; i < columnSpecStrings.size(); i++) {
-            if (columnSpecStrings.get(i).equalsIgnoreCase("COMMENT")) {
+            if ("COMMENT".equalsIgnoreCase(columnSpecStrings.get(i))) {
                 return columnSpecStrings.get(i + 1);
             }
         }
@@ -100,7 +98,7 @@ public class PhoenixCreateTableBuilder {
     private String getTableComment(CreateTable mysqlCreateTable) {
         List<String> tableOptionsStrings = (List<String>) mysqlCreateTable.getTableOptionsStrings();
         for (int i = 0; i < tableOptionsStrings.size(); i++) {
-            if (tableOptionsStrings.get(i).equalsIgnoreCase("COMMENT")) {
+            if ("COMMENT".equalsIgnoreCase(tableOptionsStrings.get(i))) {
                 return tableOptionsStrings.get(i + 2).replaceAll("'", "");
             }
         }
@@ -111,7 +109,7 @@ public class PhoenixCreateTableBuilder {
     private String getTableComment(ColumnDefinition mysqlColumnDefinition) {
         List<String> columnSpecStrings = mysqlColumnDefinition.getColumnSpecStrings();
         for (int i = 0; i < columnSpecStrings.size(); i++) {
-            if (columnSpecStrings.get(i).equalsIgnoreCase("COMMENT")) {
+            if ("COMMENT".equalsIgnoreCase(columnSpecStrings.get(i))) {
                 return columnSpecStrings.get(i + 1);
             }
         }

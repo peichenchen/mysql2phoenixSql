@@ -1,4 +1,4 @@
-package com.pcc.phoenixsql.launch;
+package com.pcc.phoenixsql;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,7 +19,7 @@ import net.sf.jsqlparser.statement.create.table.CreateTable;
  * @author peichenchen
  * @version 17/10/19 下午9:35
  */
-public class Mysql2PhoenixSql {
+public class Mysql2PhoenixSqlLauncher {
 
     /**
      * 运行前请提供如下参数

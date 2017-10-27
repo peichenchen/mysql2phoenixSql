@@ -5,19 +5,21 @@ import java.util.Map;
 import com.google.common.collect.Maps;
 
 /**
- * Created by peichenchen on 17/10/10.
+ * mysql datatype 到 phoenix datatype的映射
+ * @author peichenchen
+ * @version 17/10/27 上午11:23
  */
 public class DataTypeMapping {
 
     /**
      * key:mysql data type, value:phoenix data type
      */
-    public static final Map<String, String> mapping = Maps.newHashMap();
+    public static final Map<String, String> MAPPING_CFG = Maps.newHashMap();
 
     static {
-        mapping.put("INT", "INTEGER");
-        mapping.put("DATETIME", "TIME");
-        mapping.put("TEXT", "VARCHAR");
+        MAPPING_CFG.put("INT", "INTEGER");
+        MAPPING_CFG.put("DATETIME", "TIME");
+        MAPPING_CFG.put("TEXT", "VARCHAR");
     }
 
 }

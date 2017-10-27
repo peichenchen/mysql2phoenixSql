@@ -9,6 +9,8 @@ import net.sf.jsqlparser.statement.create.table.CreateTable;
 import net.sf.jsqlparser.statement.create.table.Index;
 
 /**
+ * phoenix 创建索引语句构建器
+ *
  * @author peichenchen
  * @date 2017/10/22
  */
