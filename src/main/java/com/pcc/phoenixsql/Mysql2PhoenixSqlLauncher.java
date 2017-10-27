@@ -16,6 +16,8 @@ import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.statement.create.table.CreateTable;
 
 /**
+ * 工具启动入口
+ *
  * @author peichenchen
  * @version 17/10/19 下午9:35
  */
@@ -25,8 +27,13 @@ public class Mysql2PhoenixSqlLauncher {
      * 运行前请提供如下参数
      */
     private static final String  SQL_PATH           = "/Users/peichenchen/Downloads/temp/testSql";
+    /**
+     * phoenix schema名称，类似mysql数据库的名称
+     */
     private static final String  SCHEMA_NAME        = "PCC_TEST";
+    //表的字段前缀
     private static final String  COLUMN_PREFIX      = "";
+    //分的region数量
     private static final int     SALT_BUCKETS       = 64;
     private static final boolean USING_FOR_TEST_ENV = false;
 
