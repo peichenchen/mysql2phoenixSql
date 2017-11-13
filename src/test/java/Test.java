@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import com.pcc.phoenixsql.utils.MyStringUtil;
 import org.apache.commons.io.FileUtils;
 
 import com.google.common.collect.Maps;
@@ -15,7 +16,7 @@ import com.google.common.collect.Maps;
 public class Test {
     public static void main(String[] args) throws IOException {
         String queryParam = FileUtils.readFileToString(new File("/Users/peichenchen/Downloads/orderListData"), "utf-8");
-        List<String> matchItems = StringUtil.extractMatchItems(queryParam, "[a-zA-Z]+=");
+        List<String> matchItems = MyStringUtil.extractMatchItems(queryParam, "[a-zA-Z]+=");
         Map<String, AtomicInteger> param2Count = Maps.newHashMap();
         for (String matchItem : matchItems) {
             AtomicInteger count = param2Count.get(matchItem);
